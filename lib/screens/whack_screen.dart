@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:woof_route/bloc/whack_bloc.dart';
 import 'package:woof_route/bloc/whack_event.dart';
 import 'package:woof_route/bloc/whack_state.dart';
+import 'package:woof_route/widgets/whack_buttons.dart';
+
+import '../widgets/is_gameover.dart';
 
 class WhackScreen extends StatelessWidget {
   const WhackScreen({super.key});
@@ -10,11 +13,10 @@ class WhackScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey.shade100,
       appBar: AppBar(
-        title: Text('Whack-a-Mole',),
+        title: Text('Whack-a-Mole'),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.blueGrey.shade300,
       ),
       body: BlocBuilder<WhackBloc, WhackState>(
         builder: (context, state) {
@@ -23,71 +25,97 @@ class WhackScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Game Over!',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Score: ${state.score}',
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () => context.read<WhackBloc>().add(WhackOnStart()),
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
-                    child: const Text('Restart'),
-                  ),
+                  IsGameOver(
+                    onRestart: () => context.read<WhackBloc>().add(WhackOnStart()),
+                    score: state.score,
+                  )
                 ],
+                // children: [
+                //   Text(
+                //     'Game Over!',
+                //     style: TextStyle(
+                //       fontSize: 24,
+                //       fontWeight: FontWeight.bold,
+                //       color: Colors.red,
+                //     ),
+                //   ),
+                //   const SizedBox(height: 20),
+                //   Text(
+                //     'Score: ${state.score}',
+                //     style: const TextStyle(fontSize: 18),
+                //   ),
+                //   const SizedBox(height: 20),
+                //   ElevatedButton(
+                //     onPressed:
+                //         () => context.read<WhackBloc>().add(WhackOnStart()),
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: Colors.blueGrey.shade300,
+                //     ),
+                //     child: const Text('Restart'),
+                //   ),
+                // ],
               ),
             );
           }
           return Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(12),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      'Score: ${state.score}',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      '🔨: ${state.score}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Text(
-                      'Lives: ${state.lives}',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      '❤️: ${state.lives}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Text(
-                      'Time Left: ${state.timeLeft}',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      '⏰: ${state.timeLeft}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
-                Expanded(
+                const SizedBox(height: 40,),
+                Padding(
+                  padding: EdgeInsets.all(12),
                   child: Center(
                     child: AspectRatio(
                       aspectRatio: 1,
                       child: GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          childAspectRatio: 1,
-                        ),
-                        itemCount: 9,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 4,
+                              crossAxisSpacing: 8,
+                              mainAxisSpacing: 8,
+                              childAspectRatio: 1,
+                            ),
+                        itemCount: 16,
                         itemBuilder: (context, moleIndex) {
                           final isMoleUp = state.molePosition[moleIndex];
                           return GestureDetector(
-                            onTap: () =>
-                                context.read<WhackBloc>().add(MoleWhacked(moleIndex)),
+                            onTap:
+                                () => context.read<WhackBloc>().add(
+                                  MoleWhacked(moleIndex),
+                                ),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: isMoleUp ? Colors.brown : Colors.grey.shade300,
+                                color:
+                                    isMoleUp
+                                        ? Colors.red
+                                        : Colors.grey.shade300,
                                 borderRadius: BorderRadius.circular(8),
                                 boxShadow: const [
                                   BoxShadow(
@@ -98,11 +126,17 @@ class WhackScreen extends StatelessWidget {
                                 ],
                               ),
                               child: Center(
-                                child: Icon(
-                                  isMoleUp ? Icons.pest_control_rodent : Icons.circle,
-                                  size: 40,
-                                  color: isMoleUp ? Colors.white : Colors.grey,
-                                ),
+                                child:
+                                    isMoleUp
+                                        ? Image.asset(
+                                          'assets/images/rodent.png',
+                                          width: 80,
+                                          height: 80,
+                                        )
+                                        : Icon(
+                                          Icons.circle,
+                                          color: Colors.grey,
+                                        ),
                               ),
                             ),
                           );
@@ -111,22 +145,29 @@ class WhackScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ElevatedButton(
-                      onPressed: () => context.read<WhackBloc>().add(WhackOnStart()),
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
-                      child: const Text('Start Game'),
-                    ),
-                    FloatingActionButton(
-                      onPressed: () => context.read<WhackBloc>().add(
-                        state.isPaused ? ResumeGame() : PauseGame(),
-                      ),
-                      backgroundColor: Colors.teal,
-                      child: Icon(state.isPaused ? Icons.play_arrow : Icons.pause),
-                    ),
+                    WhackButtons(onPressed: () => context.read<WhackBloc>().add(WhackOnStart()), content: 'Start Game', color: Colors.blueGrey),
+                    // ElevatedButton(
+                    //   onPressed:
+                    //       () => context.read<WhackBloc>().add(WhackOnStart()),
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: Colors.teal,
+                    //   ),
+                    //   child: const Text('Start Game'),
+                    // ),
+                    // FloatingActionButton(
+                    //   onPressed:
+                    //       () => context.read<WhackBloc>().add(
+                    //         state.isPaused ? ResumeGame() : PauseGame(),
+                    //       ),
+                    //   backgroundColor: Colors.teal,
+                    //   child: Icon(
+                    //     state.isPaused ? Icons.play_arrow : Icons.pause,
+                    //   ),
+                    // ),
                   ],
                 ),
               ],

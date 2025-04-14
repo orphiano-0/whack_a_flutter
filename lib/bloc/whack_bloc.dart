@@ -32,7 +32,7 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
     on<MoleWhacked>((event, emit) {
       if (state.isPaused || state.isGameOver) return;
       if (state.molePosition[event.moleIndex]) {
-        final moleUpdates = List<bool>.filled(9, false);
+        final moleUpdates = List<bool>.filled(16, false);
         emit(state.copyWith(molePosition: moleUpdates, score: state.score + 1));
       } else {
         final newLives = state.lives - 1;
@@ -66,8 +66,8 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
   }
 
   void _showRandomMole(Emitter<WhackState> emit) {
-    final updateMoles = List<bool>.filled(9, false);
-    final index = _random.nextInt(9);
+    final updateMoles = List<bool>.filled(16, false);
+    final index = _random.nextInt(16);
     updateMoles[index] = true;
     emit(state.copyWith(molePosition: updateMoles));
   }
