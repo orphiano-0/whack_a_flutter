@@ -30,6 +30,7 @@ class WhackButtons extends StatelessWidget {
           content,
           style: TextStyle(
             fontSize: 15,
+            fontFamily: 'Montserrat',
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),

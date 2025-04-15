@@ -24,11 +24,8 @@ class IsGameOver extends StatelessWidget {
         children: [
           Text('Game over! Your score is: $score', textAlign: TextAlign.center),
           SizedBox(height: 20),
-          Icon(
-            Icons.pest_control_rodent,
-            size: 50,
-            color: Color.fromARGB(255, 71, 62, 51),
-          ),
+          Image.asset('assets/images/pixelated_chicken.png', height: 100,),
+
         ],
       ),
       actions: [

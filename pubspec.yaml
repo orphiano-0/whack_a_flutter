@@ -37,6 +37,7 @@ dependencies:
   flutter_bloc: ^9.1.0
   equatable: ^2.0.7
   google_fonts: ^6.2.1
+  audioplayers: ^6.4.0
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +66,7 @@ flutter:
      - assets/images/gab.jpeg
      - assets/images/pixelated_chicken.png
      - assets/images/rodent.png
+     - assets/audio/smash.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -86,6 +88,18 @@ flutter:
        fonts:
          - asset: assets/fonts/montserrat/Montserrat-Regular.otf
          - asset: assets/fonts/montserrat/Montserrat-Bold.otf
+     - family: Roboto
+       fonts:
+         - asset: assets/fonts/roboto/Roboto-Regular.ttf
+         - asset: assets/fonts/roboto/Roboto-Bold.ttf
+     - family: Lato
+       fonts:
+         - asset: assets/fonts/lato/Lato-Regular.ttf
+         - asset: assets/fonts/lato/Lato-Bold.ttf
+     - family: Poppins
+       fonts:
+         - asset: assets/fonts/poppins/Poppins-Regular.otf
+         - asset: assets/fonts/poppins/Poppins-Bold.otf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

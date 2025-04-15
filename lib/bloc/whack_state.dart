@@ -6,16 +6,18 @@ class WhackState {
   final int timeLeft;
   final bool isGameOver;
   final bool isPaused;
+  final int speed;
 
-  WhackState({ required this.molePosition, required this.score, required this.lives, required this.timeLeft,
-     this.isGameOver = false, this.isPaused = false});
+  WhackState({ required this.molePosition, required this.score, required this.lives, required this.timeLeft, required this.speed,
+     this.isGameOver = false, this.isPaused = false, });
 
   factory WhackState.initial() {
     return WhackState(
       molePosition: List.filled(16, false),
       score: 0,
-      lives: 3,
-      timeLeft: 60,
+      lives: 10,
+      timeLeft: 100,
+      speed: 1000,
     );
   }
 
@@ -26,6 +28,8 @@ class WhackState {
     int? timeLeft,
     bool? isGameOver,
     bool? isPaused,
+
+    int? speed,
   }) {
     return WhackState(
       molePosition: molePosition ?? this.molePosition,
@@ -34,6 +38,8 @@ class WhackState {
       timeLeft: timeLeft ?? this.timeLeft,
       isGameOver: isGameOver ?? this.isGameOver,
       isPaused: isPaused ?? this.isPaused,
+
+      speed: speed ?? this.speed,
     );
   }
 

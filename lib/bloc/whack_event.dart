@@ -2,6 +2,8 @@ abstract class WhackEvent {}
 
 class WhackOnStart extends WhackEvent {}
 
+class WhackOnRestart extends WhackEvent {}
+
 class MoleAppeared extends WhackEvent {
   final int moleIndex;
   MoleAppeared(this.moleIndex);
@@ -19,3 +21,5 @@ class EndGame extends WhackEvent {}
 class PauseGame extends WhackEvent {}
 
 class ResumeGame extends WhackEvent {}
+
+class IncreaseSpeed extends WhackEvent {}
