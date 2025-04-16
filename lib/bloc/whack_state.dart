@@ -15,9 +15,9 @@ class WhackState {
     return WhackState(
       molePosition: List.filled(16, false),
       score: 0,
-      lives: 10,
-      timeLeft: 100,
-      speed: 1000,
+      lives: 13,
+      timeLeft: 30,
+      speed: 700,
     );
   }
 

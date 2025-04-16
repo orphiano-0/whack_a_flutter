@@ -13,6 +13,7 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
   final Random _random = Random();
   final AudioPlayer _audioPlayer = AudioPlayer();
 
+
   WhackBloc() : super(WhackState.initial()) {
     on<WhackOnStart>((event, emit) {
       _timer?.cancel();
@@ -36,24 +37,26 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
         emit(state.copyWith(timeLeft: state.timeLeft - 1));
         if (!state.isGameOver && !state.isPaused) {
           _showRandomMole(emit);
-          _increaseSpeed(emit);
+          // _increaseSpeed(emit);
         }
       }
     });
 
-    on<IncreaseSpeed>((event, emit) {
-      if (state.isPaused || state.isGameOver) return;
-
-      if (state.speed > 20) {
-        emit(state.copyWith(speed: state.speed - 10)); // Decrease speed
-      }
-    });
+    // on<IncreaseSpeed>((event, emit) {
+    //   if (state.isPaused || state.isGameOver) return;
+    //
+    //   if (state.speed > 20) {
+    //     emit(state.copyWith(speed: state.speed - 10)); // Decrease speed
+    //   }
+    // });
 
 
     on<MoleWhacked>((event, emit) {
       if (state.isPaused || state.isGameOver) return;
       if (state.molePosition[event.moleIndex]) {
         final moleUpdates = List<bool>.filled(16, false);
+        _playClickSound();
+        _onHitSmash();
         emit(state.copyWith(molePosition: moleUpdates, score: state.score + 1));
 
       } else {
@@ -62,7 +65,6 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
           state.copyWith(
             lives: newLives,
             isGameOver: newLives <= 0 ? true : state.isGameOver,
-
           ),
         );
         _playClickSound();
@@ -83,9 +85,10 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
     });
   }
 
-  void _playClickSound() async {
-    await _audioPlayer.play(AssetSource('assets/audio/smash.mp3'));
-  }
+  // void _onPlayingSound() {
+  //   final player = AudioPlayer();
+  //   player.play(AssetSource('assets/audio/smash.wav'));
+  // }
 
   void _startTimer() {
     _timer = Timer.periodic(Duration(milliseconds: state.speed), (timer) {
@@ -93,17 +96,27 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
     });
   }
 
-  void _increaseSpeed(Emitter<WhackState> emit) {
-    if (state.isPaused || state.isGameOver) return;
-
-    if (state.score > 10 && state.score <= 30 && state.speed > 50) {
-      add(IncreaseSpeed());
-    } else if (state.score > 30 && state.score <= 50 && state.speed > 30) {
-      add(IncreaseSpeed());
-    } else if (state.score > 50 && state.speed > 20) {
-      add(IncreaseSpeed());
-    }
+  void _onHitSmash() async {
+    await _audioPlayer.stop();
+    await _audioPlayer.play(AssetSource('audio/oof.mp3'));
   }
+
+  void _playClickSound() async {
+    await _audioPlayer.stop();
+    await _audioPlayer.play(AssetSource('audio/smash.mp3'));
+  }
+
+  // void _increaseSpeed(Emitter<WhackState> emit) {
+  //   if (state.isPaused || state.isGameOver) return;
+  //
+  //   if (state.score > 10 && state.score <= 30 && state.speed > 50) {
+  //     add(IncreaseSpeed());
+  //   } else if (state.score > 30 && state.score <= 50 && state.speed > 30) {
+  //     add(IncreaseSpeed());
+  //   } else if (state.score > 50 && state.speed > 20) {
+  //     add(IncreaseSpeed());
+  //   }
+  // }
 
   void _showRandomMole(Emitter<WhackState> emit) {
     final updateMoles = List<bool>.filled(16, false);

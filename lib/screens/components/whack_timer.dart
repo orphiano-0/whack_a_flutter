@@ -11,7 +11,7 @@ class _WhackTimerState extends State<WhackTimer>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
-  final int timerDuration = 60;
+  final int timerDuration = 30;
 
   @override
   void initState() {

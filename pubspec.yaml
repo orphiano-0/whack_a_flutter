@@ -64,9 +64,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/images/gab.jpeg
+     - assets/images/hole.png
+     - assets/images/mole.png
      - assets/images/pixelated_chicken.png
      - assets/images/rodent.png
      - assets/audio/smash.mp3
+     - assets/audio/on_hit.m4a
+     - assets/audio/oof.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

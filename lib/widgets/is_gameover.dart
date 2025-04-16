@@ -25,7 +25,6 @@ class IsGameOver extends StatelessWidget {
           Text('Game over! Your score is: $score', textAlign: TextAlign.center),
           SizedBox(height: 20),
           Image.asset('assets/images/pixelated_chicken.png', height: 100,),
-
         ],
       ),
       actions: [
