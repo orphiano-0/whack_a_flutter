@@ -15,7 +15,7 @@ class WhackButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150,
+      width: 250,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -29,7 +29,7 @@ class WhackButtons extends StatelessWidget {
         child: Text(
           content,
           style: TextStyle(
-            fontSize: 15,
+            fontSize: 18,
             fontFamily: 'Roboto',
             fontWeight: FontWeight.bold,
             color: Colors.white,

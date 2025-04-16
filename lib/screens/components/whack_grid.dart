@@ -37,15 +37,15 @@ class _WhackGridState extends State<WhackGrid> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.blueGrey.shade900,
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 4,
-                          offset: Offset(2, 2),
-                        ),
-                      ],
+                      color: Colors.transparent,
+                      // borderRadius: BorderRadius.circular(15),
+                      // boxShadow: const [
+                      //   BoxShadow(
+                      //     color: Colors.black26,
+                      //     blurRadius: 4,
+                      //     offset: Offset(2, 2),
+                      //   ),
+                      // ],
                     ),
                     child: Center(
                       child:

@@ -67,10 +67,12 @@ flutter:
      - assets/images/hole.png
      - assets/images/mole.png
      - assets/images/pixelated_chicken.png
+     - assets/images/background.png
      - assets/images/rodent.png
      - assets/audio/smash.mp3
      - assets/audio/on_hit.m4a
      - assets/audio/oof.mp3
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
