@@ -1,4 +1,3 @@
-
 class WhackState {
   final List<bool> molePosition;
   final int score;
@@ -8,8 +7,15 @@ class WhackState {
   final bool isPaused;
   final int speed;
 
-  WhackState({ required this.molePosition, required this.score, required this.lives, required this.timeLeft, required this.speed,
-     this.isGameOver = false, this.isPaused = false, });
+  WhackState({
+    required this.molePosition,
+    required this.score,
+    required this.lives,
+    required this.timeLeft,
+    required this.speed,
+    this.isGameOver = false,
+    this.isPaused = false,
+  });
 
   factory WhackState.initial() {
     return WhackState(
@@ -42,5 +48,4 @@ class WhackState {
       speed: speed ?? this.speed,
     );
   }
-
 }

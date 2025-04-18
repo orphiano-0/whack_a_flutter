@@ -4,6 +4,7 @@ import 'package:woof_route/bloc/whack_bloc.dart';
 import 'package:woof_route/bloc/whack_event.dart';
 import 'package:woof_route/bloc/whack_state.dart';
 import 'package:woof_route/screens/components/lives_counter.dart';
+import 'package:woof_route/screens/components/score_counter.dart';
 import 'package:woof_route/screens/components/whack_grid.dart';
 import 'package:woof_route/widgets/whack_buttons.dart';
 
@@ -48,7 +49,7 @@ class WhackScreen extends StatelessWidget {
                     ),
                 icon:
                     state.isPaused
-                        ? Icon(Icons.play_arrow, color: Colors.white,)
+                        ? Icon(Icons.play_arrow, color: Colors.white)
                         : Icon(Icons.pause, color: Colors.white),
               ),
             ],
@@ -63,62 +64,64 @@ class WhackScreen extends StatelessWidget {
           //     ),
           //   ),
           //   child:
-            body: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: [
-                  //     Text(
-                  //       '🔨: ${state.score}',
-                  //       style: const TextStyle(
-                  //         fontSize: 18,
-                  //       ),
-                  //     ),
-                      Text(
-                        'Timer: ${state.timeLeft}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                  //   ],
-                  // ),
-                  const SizedBox(height: 20),
-                  LivesCounter(lives: state.lives),
-                  const SizedBox(height: 20),
-                  // WhackTimer(),
-                  const SizedBox(height: 20),
-                  // whack grid widget
-                  WhackGrid(),
-                  const SizedBox(height: 40),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      WhackButtons(
-                        onPressed:
-                            () => context.read<WhackBloc>().add(WhackOnStart()),
-                        content: 'Start',
-                        color: Colors.blueGrey.shade900,
-                      ),
-                      // WhackButtons(
-                      //   onPressed:
-                      //       () => context.read<WhackBloc>().add(
-                      //         state.isPaused ? ResumeGame() : PauseGame(),
-                      //       ),
-                      //   content: state.isPaused ? 'Resume' : 'Pause',
-                      //   color:
-                      //       state.isPaused
-                      //           ? Colors.blueGrey.shade900
-                      //           : Colors.blueGrey.shade300,
-                      // ),
-                    ],
+          body: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: [
+                //     Text(
+                //       '🔨: ${state.score}',
+                //       style: const TextStyle(
+                //         fontSize: 18,
+                //       ),
+                //     ),
+                ScoreCounter(score: state.score),
+                const SizedBox(height: 20),
+                Text(
+                  'Timer: ${state.timeLeft}',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              ),
+                ),
+                //   ],
+                // ),
+                const SizedBox(height: 20),
+                LivesCounter(lives: state.lives),
+                const SizedBox(height: 20),
+                // WhackTimer(),
+                const SizedBox(height: 20),
+                // whack grid widget
+                WhackGrid(),
+                const SizedBox(height: 40),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    WhackButtons(
+                      onPressed:
+                          () => context.read<WhackBloc>().add(WhackOnStart()),
+                      content: 'Start',
+                      color: Colors.blueGrey.shade900,
+                    ),
+                    // WhackButtons(
+                    //   onPressed:
+                    //       () => context.read<WhackBloc>().add(
+                    //         state.isPaused ? ResumeGame() : PauseGame(),
+                    //       ),
+                    //   content: state.isPaused ? 'Resume' : 'Pause',
+                    //   color:
+                    //       state.isPaused
+                    //           ? Colors.blueGrey.shade900
+                    //           : Colors.blueGrey.shade300,
+                    // ),
+                  ],
+                ),
+              ],
             ),
+          ),
           // ),
         );
       },
