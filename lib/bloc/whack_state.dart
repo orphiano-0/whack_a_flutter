@@ -19,11 +19,11 @@ class WhackState {
 
   factory WhackState.initial() {
     return WhackState(
-      molePosition: List.filled(16, false),
+      molePosition: List.filled(9, false),
       score: 0,
       lives: 13,
-      timeLeft: 30,
-      speed: 700,
+      timeLeft: 100,
+      speed: 2000,
     );
   }
 
