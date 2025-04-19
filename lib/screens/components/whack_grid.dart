@@ -23,12 +23,12 @@ class _WhackGridState extends State<WhackGrid> {
             aspectRatio: 1,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 8,
+                crossAxisCount: 3,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 10,
                 childAspectRatio: 1,
               ),
-              itemCount: 16,
+              itemCount: 9,
               itemBuilder: (context, moleIndex) {
                 final isMoleUp = state.molePosition[moleIndex];
                 return GestureDetector(
