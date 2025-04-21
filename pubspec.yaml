@@ -38,6 +38,7 @@ dependencies:
   equatable: ^2.0.7
   google_fonts: ^6.2.1
   audioplayers: ^6.4.0
+  lottie: ^3.3.1
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+     - assets/lottie/
+     - assets/images/mole_background.png
+     - assets/images/hole.png
+     - assets/images/cracked.png
      - assets/images/gab.jpeg
      - assets/images/hole.png
      - assets/images/mole.png
@@ -71,6 +76,7 @@ flutter:
      - assets/images/rodent.png
      - assets/audio/smash.mp3
      - assets/audio/on_hit.m4a
+     - assets/audio/quack.mp3
      - assets/audio/oof.mp3
 
 
@@ -106,6 +112,9 @@ flutter:
        fonts:
          - asset: assets/fonts/poppins/Poppins-Regular.otf
          - asset: assets/fonts/poppins/Poppins-Bold.otf
+     - family: Pixel
+       fonts:
+         - asset: assets/fonts/public-pixel-font/PublicPixel-rv0pA.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

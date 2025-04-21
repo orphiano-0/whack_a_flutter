@@ -112,7 +112,7 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
 
   void _onHitSmash() async {
     await _audioPlayer.stop();
-    await _audioPlayer.play(AssetSource('audio/oof.mp3'));
+    await _audioPlayer.play(AssetSource('audio/quack.mp3'));
   }
 
   void _playClickSound() async {
