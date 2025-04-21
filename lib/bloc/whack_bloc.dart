@@ -11,7 +11,8 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
   Timer? _gameTimer;
   Timer? _moleTimer;
   final Random _random = Random();
-  final AudioPlayer _audioPlayer = AudioPlayer();
+  final AudioPlayer _soundEffects = AudioPlayer();
+  final AudioPlayer _backgroundMusic = AudioPlayer();
 
   WhackBloc() : super(WhackState.initial()) {
     on<WhackOnStart>((event, emit) {
@@ -20,15 +21,17 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
       emit(WhackState.initial());
       _startGameTimer();
       _startMoleTimer();
+      _playBackgroundMusic();
     });
 
     on<Tick>((event, emit) {
       if (state.isPaused || state.isGameOver) return;
 
-      if (state.timeLeft <= 1) {
+      if (state.timeLeft < 1) {
         _gameTimer?.cancel();
         _moleTimer?.cancel();
         emit(state.copyWith(isGameOver: true));
+        _stopBackgroundMusic();
       } else {
         emit(state.copyWith(timeLeft: state.timeLeft - 1));
       }
@@ -61,16 +64,19 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
 
     on<PauseGame>((event, emit) {
       emit(state.copyWith(isPaused: true));
+      _backgroundMusic.pause();
     });
 
     on<ResumeGame>((event, emit) {
       emit(state.copyWith(isPaused: false));
+      _backgroundMusic.resume();
     });
 
     on<EndGame>((event, emit) {
       _gameTimer?.cancel();
       _moleTimer?.cancel();
       emit(state.copyWith(isGameOver: true));
+      _stopBackgroundMusic();
     });
   }
 
@@ -110,14 +116,23 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
     }
   }
 
+  void _playBackgroundMusic() async {
+    await _backgroundMusic.setReleaseMode(ReleaseMode.loop);
+    await _backgroundMusic.play(AssetSource('audio/background_music.mp3'));
+  }
+
+  void _stopBackgroundMusic() async {
+    await _backgroundMusic.stop();
+  }
+
   void _onHitSmash() async {
-    await _audioPlayer.stop();
-    await _audioPlayer.play(AssetSource('audio/quack.mp3'));
+    await _soundEffects.stop();
+    await _soundEffects.play(AssetSource('audio/quack.mp3'));
   }
 
   void _playClickSound() async {
-    await _audioPlayer.stop();
-    await _audioPlayer.play(AssetSource('audio/smash.mp3'));
+    await _soundEffects.stop();
+    await _soundEffects.play(AssetSource('audio/smash.mp3'));
   }
 
   void _showRandomMole() {

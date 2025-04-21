@@ -13,23 +13,23 @@ import '../widgets/is_gameover.dart';
 class WhackScreen extends StatelessWidget {
   const WhackScreen({super.key});
 
+  void _showGameOverDialog(BuildContext context, WhackState state) {
+    showDialog(context: context, barrierDismissible: false, builder: (BuildContext dialogContext) {
+      return IsGameOver(score: state.score, onRestart: () {
+        Navigator.of(dialogContext).pop();
+        context.read<WhackBloc>().add(WhackOnStart());
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WhackBloc, WhackState>(
       builder: (context, state) {
         if (state.isGameOver) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IsGameOver(
-                  onRestart:
-                      () => context.read<WhackBloc>().add(WhackOnStart()),
-                  score: state.score,
-                ),
-              ],
-            ),
-          );
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _showGameOverDialog(context, state);
+          });
         }
         return Scaffold(
           appBar: AppBar(
@@ -76,19 +76,10 @@ class WhackScreen extends StatelessWidget {
                       WhackCounter(score: state.timeLeft, icon: Icons.timer, label: 'Timer'),
                     ],
                   ),
-                  // Text(
-                  //   'Timer: ${state.timeLeft}',
-                  //   style: const TextStyle(
-                  //     fontSize: 18,
-                  //     fontWeight: FontWeight.bold,
-                  //   ),
-                  // ),
                   const SizedBox(height: 50),
                   LivesCounter(lives: state.lives),
                   const SizedBox(height: 20),
-                  // WhackTimer(),
                   const SizedBox(height: 20),
-                  // whack grid widget
                   WhackGrid(),
                   const SizedBox(height: 40),
                   Row(
@@ -100,17 +91,6 @@ class WhackScreen extends StatelessWidget {
                         content: 'Start',
                         color: Colors.blueGrey.shade900,
                       ),
-                      // WhackButtons(
-                      //   onPressed:
-                      //       () => context.read<WhackBloc>().add(
-                      //         state.isPaused ? ResumeGame() : PauseGame(),
-                      //       ),
-                      //   content: state.isPaused ? 'Resume' : 'Pause',
-                      //   color:
-                      //       state.isPaused
-                      //           ? Colors.blueGrey.shade900
-                      //           : Colors.blueGrey.shade300,
-                      // ),
                     ],
                   ),
                 ],

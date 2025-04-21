@@ -36,7 +36,6 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_bloc: ^9.1.0
   equatable: ^2.0.7
-  google_fonts: ^6.2.1
   audioplayers: ^6.4.0
   lottie: ^3.3.1
 
@@ -78,6 +77,7 @@ flutter:
      - assets/audio/on_hit.m4a
      - assets/audio/quack.mp3
      - assets/audio/oof.mp3
+     - assets/audio/background_music.mp3
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -92,26 +92,6 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: OpenSans
-       fonts:
-         - asset: assets/fonts/open-sans/OpenSans-Regular.ttf
-         - asset: assets/fonts/open-sans/OpenSans-Bold.ttf
-     - family: Montserrat
-       fonts:
-         - asset: assets/fonts/montserrat/Montserrat-Regular.otf
-         - asset: assets/fonts/montserrat/Montserrat-Bold.otf
-     - family: Roboto
-       fonts:
-         - asset: assets/fonts/roboto/Roboto-Regular.ttf
-         - asset: assets/fonts/roboto/Roboto-Bold.ttf
-     - family: Lato
-       fonts:
-         - asset: assets/fonts/lato/Lato-Regular.ttf
-         - asset: assets/fonts/lato/Lato-Bold.ttf
-     - family: Poppins
-       fonts:
-         - asset: assets/fonts/poppins/Poppins-Regular.otf
-         - asset: assets/fonts/poppins/Poppins-Bold.otf
      - family: Pixel
        fonts:
          - asset: assets/fonts/public-pixel-font/PublicPixel-rv0pA.ttf
