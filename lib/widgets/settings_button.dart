@@ -1,41 +1,33 @@
 import 'package:flutter/material.dart';
 
-class WhackButtons extends StatelessWidget {
+class SettingsButton extends StatelessWidget {
   final VoidCallback? onPressed;
-  final String content;
+  final IconData icon;
   final Color color;
 
-  const WhackButtons({
+  const SettingsButton({
     super.key,
     required this.onPressed,
-    required this.content,
+    required this.icon,
     required this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 250,
+      width: 110,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(10),
           ),
           backgroundColor: color,
           elevation: 2,
         ),
-        child: Text(
-          content,
-          style: TextStyle(
-            fontSize: 20,
-            fontFamily: 'Pixel',
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+        child: Icon(icon, color: Colors.white, size: 40,)
         ),
-      ),
     );
   }
 }
