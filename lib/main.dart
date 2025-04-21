@@ -14,7 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BlocProvider(create: (_) => WhackBloc(), child: WhackScreen()),
+      home: BlocProvider(
+        create: (_) => WhackBloc(), 
+        child: WhackScreen()
+      ),
     );
   }
 }

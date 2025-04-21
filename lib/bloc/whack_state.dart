@@ -23,7 +23,7 @@ class WhackState {
       score: 0,
       lives: 11,
       timeLeft: 100,
-      speed: 2000,
+      speed: 1500,
     );
   }
 

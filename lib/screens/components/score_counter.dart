@@ -29,7 +29,7 @@ class _WhackCounterState extends State<WhackCounter>
 
     _scaleAnimation = Tween<double>(
       begin: 1.0,
-      end: 1.01,
+      end: 1.03,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
 
     _controller.addStatusListener((status) {
@@ -59,10 +59,7 @@ class _WhackCounterState extends State<WhackCounter>
       scale: _scaleAnimation,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        // decoration: BoxDecoration(
-        //   color: Colors.blueGrey.shade900,
-        //   borderRadius: BorderRadius.circular(12),
-        // ),
+
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

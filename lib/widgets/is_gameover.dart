@@ -10,23 +10,24 @@ class IsGameOver extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.blueGrey.shade900,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       title: const Text(
         'Game Over!',
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 24,
+          fontFamily: 'Pixel',
+          fontSize: 20,
           fontWeight: FontWeight.bold,
-          color: Color.fromARGB(255, 71, 62, 51),
+          color: Colors.white,
         ),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Game over! Your score is: $score', textAlign: TextAlign.center),
+          Text('The game is over! Your score is: $score', style: TextStyle(fontFamily: 'Pixel', fontSize: 10, color: Colors.white), textAlign: TextAlign.center),
           SizedBox(height: 20),
-          // Image.asset('assets/images/pixelated_chicken.png', height: 100,),
-          Lottie.asset('assets/lottie/quacker.json', height: 100),
+          Lottie.asset('assets/lottie/quacker.json', height: 130, width: 130),
         ],
       ),
       actions: [
@@ -36,7 +37,7 @@ class IsGameOver extends StatelessWidget {
           },
           child: Text(
             'Restart',
-            style: TextStyle(color: Color.fromARGB(255, 71, 62, 51),),
+            style: TextStyle(color: Colors.white, fontFamily: 'Pixel', fontSize: 10),
           ),
         ),
       ],
