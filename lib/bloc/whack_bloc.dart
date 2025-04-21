@@ -11,8 +11,10 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
   Timer? _gameTimer;
   Timer? _moleTimer;
   final Random _random = Random();
-  final AudioPlayer _soundEffects = AudioPlayer();
+
   final AudioPlayer _backgroundMusic = AudioPlayer();
+  final AudioPlayer _quackSound = AudioPlayer();
+  final AudioPlayer _smashSound = AudioPlayer();
 
   WhackBloc() : super(WhackState.initial()) {
     on<WhackOnStart>((event, emit) {
@@ -42,23 +44,19 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
 
       if (state.molePosition[event.moleIndex]) {
         final moleUpdates = List<bool>.filled(9, false);
-        _playClickSound();
         _onHitSmash();
 
         final newScore = state.score + 1;
         emit(state.copyWith(molePosition: moleUpdates, score: newScore));
 
         _checkAndIncreaseDifficulty(emit);
-
       } else {
         final newLives = state.lives - 1;
-        emit(
-          state.copyWith(
-            lives: newLives,
-            isGameOver: newLives <= 0 ? true : state.isGameOver,
-          ),
-        );
-        _playClickSound();
+        emit(state.copyWith(
+          lives: newLives,
+          isGameOver: newLives <= 0 ? true : state.isGameOver,
+        ));
+        _playSmashSound();
       }
     });
 
@@ -97,7 +95,6 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
   void _checkAndIncreaseDifficulty(Emitter<WhackState> emit) {
     int newSpeed = state.speed;
 
-    // 🎯 Customize thresholds
     if (state.score >= 50 && state.speed > 300) {
       newSpeed = 300;
     } else if (state.score >= 30 && state.speed > 500) {
@@ -108,7 +105,6 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
       newSpeed = 1000;
     }
 
-    // Restart mole timer if speed changes
     if (newSpeed != state.speed) {
       emit(state.copyWith(speed: newSpeed));
       _moleTimer?.cancel();
@@ -126,13 +122,13 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
   }
 
   void _onHitSmash() async {
-    await _soundEffects.stop();
-    await _soundEffects.play(AssetSource('audio/quack.mp3'));
+    await _quackSound.stop();
+    await _quackSound.play(AssetSource('audio/quack.mp3'));
   }
 
-  void _playClickSound() async {
-    await _soundEffects.stop();
-    await _soundEffects.play(AssetSource('audio/smash.mp3'));
+  void _playSmashSound() async {
+    await _smashSound.stop();
+    await _smashSound.play(AssetSource('audio/smash.mp3'));
   }
 
   void _showRandomMole() {
