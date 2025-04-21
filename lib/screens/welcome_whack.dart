@@ -6,6 +6,7 @@ import 'package:woof_route/bloc/whack_event.dart';
 import 'package:woof_route/widgets/settings_button.dart';
 import 'package:woof_route/widgets/whack_buttons.dart';
 
+import 'settings/sound_settings.dart';
 import 'whack_screen.dart';
 
 class StartScreen extends StatelessWidget {
@@ -25,30 +26,79 @@ class StartScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Lottie.asset('assets/lottie/quacker.json', height: 250, width: 250),
-              Text('Quack-a-Duck', style: TextStyle(fontFamily: 'Pixel', fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),),
-              SizedBox(height: 20,),
+              Lottie.asset(
+                'assets/lottie/quacker.json',
+                height: 250,
+                width: 250,
+              ),
+              Text(
+                'Quack-a-Duck',
+                style: TextStyle(
+                  fontFamily: 'Pixel',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 5,),
+              Text(
+                'by Gab',
+                style: TextStyle(
+                  fontFamily: 'Pixel',
+                  fontSize: 10,
+                  color: Colors.white
+                ),
+              ),
+              SizedBox(height: 20),
               WhackButtons(
                 onPressed: () {
                   // Trigger game start event and navigate to main screen
                   context.read<WhackBloc>().add(WhackOnStart());
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const WhackScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const WhackScreen(),
+                    ),
                   );
                 },
                 content: 'Play!',
                 color: Colors.blueGrey.shade900,
               ),
-              SizedBox(height: 10,),
+              SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SettingsButton(onPressed: () {}, icon: Icons.settings, color: Colors.blueGrey.shade900),
-                  SizedBox(width: 20,),
-                  SettingsButton(onPressed: () {}, icon: Icons.volume_up, color: Colors.blueGrey.shade900),
+                  SettingsButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return SettingsDialog(
+                            brightness: 1.0,
+                            volume: 1.0,
+                            onBrightnessChanged: (value) {
+                              // Handle brightness change logic here
+                            },
+                            onVolumeChanged: (value) {
+                              // Handle volume change logic here
+                            },
+                          );
+                        },
+                      );
+                    },
+                    icon: Icons.settings,
+                    color: Colors.blueGrey.shade900,
+                  ),
+                  SizedBox(width: 20),
+                  SettingsButton(
+                    onPressed: () {
+
+                    },
+                    icon: Icons.volume_up,
+                    color: Colors.blueGrey.shade900,
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),

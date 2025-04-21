@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:screen_brightness/screen_brightness.dart';
 
 import 'whack_event.dart';
 import 'whack_state.dart';
@@ -136,5 +137,15 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
     final index = _random.nextInt(9);
     updateMoles[index] = true;
     emit(state.copyWith(molePosition: updateMoles));
+  }
+
+  void setVolume(double volume) {
+    _backgroundMusic.setVolume(volume);
+    _quackSound.setVolume(volume);
+    _smashSound.setVolume(volume);
+  }
+
+  void setBrightness(double brightness) async {
+    await ScreenBrightness().setScreenBrightness(brightness);
   }
 }

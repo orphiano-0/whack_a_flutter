@@ -101,18 +101,6 @@ class WhackScreen extends StatelessWidget {
                   LivesCounter(lives: state.lives),
                   const SizedBox(height: 140),
                   WhackGrid(),
-                  // const SizedBox(height: 40),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: [
-                  //     WhackButtons(
-                  //       onPressed:
-                  //           () => context.read<WhackBloc>().add(WhackOnStart()),
-                  //       content: 'Start',
-                  //       color: Colors.blueGrey.shade900,
-                  //     ),
-                  //   ],
-                  // ),
                 ],
               ),
             ),
