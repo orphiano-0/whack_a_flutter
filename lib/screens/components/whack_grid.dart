@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:woof_route/bloc/whack_bloc.dart';
 import 'package:woof_route/bloc/whack_event.dart';
 import 'package:woof_route/bloc/whack_state.dart';
@@ -50,13 +51,13 @@ class _WhackGridState extends State<WhackGrid> {
                     child: Center(
                       child:
                           isMoleUp
-                              ? Image.asset(
-                                'assets/images/mole.png',
-                                width: 100,
-                                height: 100,
+                              ? Lottie.asset(
+                                'assets/lottie/quacker.json',
+                                width: 150,
+                                height: 150,
                               )
                               : Image.asset(
-                                'assets/images/hole.png',
+                                'assets/images/cracked.png',
                                 width: 100,
                                 height: 100,
                               ),

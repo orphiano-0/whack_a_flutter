@@ -34,10 +34,11 @@ class WhackScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Smash',
+              'Smash Quacker',
               style: TextStyle(
                 color: Colors.white,
-                fontFamily: 'Roboto',
+                fontSize: 20,
+                fontFamily: 'Pixel',
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -49,80 +50,73 @@ class WhackScreen extends StatelessWidget {
                     ),
                 icon:
                     state.isPaused
-                        ? Icon(Icons.play_arrow, color: Colors.white)
-                        : Icon(Icons.pause, color: Colors.white),
+                        ? Icon(Icons.play_arrow, color: Colors.white, size: 30)
+                        : Icon(Icons.pause, color: Colors.white, size: 30),
               ),
             ],
             centerTitle: true,
             backgroundColor: Colors.blueGrey.shade900,
           ),
-          // body: DecoratedBox(
-          //   decoration: BoxDecoration(
-          //     image: DecorationImage(
-          //       image: AssetImage('assets/images/background.png'),
-          //       fit: BoxFit.cover,
-          //     ),
-          //   ),
-          //   child:
-          body: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //   children: [
-                //     Text(
-                //       '🔨: ${state.score}',
-                //       style: const TextStyle(
-                //         fontSize: 18,
-                //       ),
-                //     ),
-                ScoreCounter(score: state.score),
-                const SizedBox(height: 20),
-                Text(
-                  'Timer: ${state.timeLeft}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+
+          body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/mole_background.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      WhackCounter(score: state.score, icon: Icons.star, label: 'Score',),
+                      SizedBox(width: 40),
+                      WhackCounter(score: state.timeLeft, icon: Icons.timer, label: 'Timer'),
+                    ],
                   ),
-                ),
-                //   ],
-                // ),
-                const SizedBox(height: 20),
-                LivesCounter(lives: state.lives),
-                const SizedBox(height: 20),
-                // WhackTimer(),
-                const SizedBox(height: 20),
-                // whack grid widget
-                WhackGrid(),
-                const SizedBox(height: 40),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    WhackButtons(
-                      onPressed:
-                          () => context.read<WhackBloc>().add(WhackOnStart()),
-                      content: 'Start',
-                      color: Colors.blueGrey.shade900,
-                    ),
-                    // WhackButtons(
-                    //   onPressed:
-                    //       () => context.read<WhackBloc>().add(
-                    //         state.isPaused ? ResumeGame() : PauseGame(),
-                    //       ),
-                    //   content: state.isPaused ? 'Resume' : 'Pause',
-                    //   color:
-                    //       state.isPaused
-                    //           ? Colors.blueGrey.shade900
-                    //           : Colors.blueGrey.shade300,
-                    // ),
-                  ],
-                ),
-              ],
+                  // Text(
+                  //   'Timer: ${state.timeLeft}',
+                  //   style: const TextStyle(
+                  //     fontSize: 18,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
+                  const SizedBox(height: 50),
+                  LivesCounter(lives: state.lives),
+                  const SizedBox(height: 20),
+                  // WhackTimer(),
+                  const SizedBox(height: 20),
+                  // whack grid widget
+                  WhackGrid(),
+                  const SizedBox(height: 40),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      WhackButtons(
+                        onPressed:
+                            () => context.read<WhackBloc>().add(WhackOnStart()),
+                        content: 'Start',
+                        color: Colors.blueGrey.shade900,
+                      ),
+                      // WhackButtons(
+                      //   onPressed:
+                      //       () => context.read<WhackBloc>().add(
+                      //         state.isPaused ? ResumeGame() : PauseGame(),
+                      //       ),
+                      //   content: state.isPaused ? 'Resume' : 'Pause',
+                      //   color:
+                      //       state.isPaused
+                      //           ? Colors.blueGrey.shade900
+                      //           : Colors.blueGrey.shade300,
+                      // ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-          // ),
         );
       },
     );

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-class ScoreCounter extends StatefulWidget {
+class WhackCounter extends StatefulWidget {
   final int score;
+  final String label;
+  final IconData icon;
 
-  const ScoreCounter({super.key, required this.score});
+  const WhackCounter({super.key, required this.score, required this.icon, required this.label });
 
   @override
-  State<ScoreCounter> createState() => _ScoreCounterState();
+  State<WhackCounter> createState() => _WhackCounterState();
 }
 
-class _ScoreCounterState extends State<ScoreCounter>
+class _WhackCounterState extends State<WhackCounter>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
@@ -27,7 +29,7 @@ class _ScoreCounterState extends State<ScoreCounter>
 
     _scaleAnimation = Tween<double>(
       begin: 1.0,
-      end: 1.2,
+      end: 1.01,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
 
     _controller.addStatusListener((status) {
@@ -38,7 +40,7 @@ class _ScoreCounterState extends State<ScoreCounter>
   }
 
   @override
-  void didUpdateWidget(covariant ScoreCounter oldWidget) {
+  void didUpdateWidget(covariant WhackCounter oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.score != oldWidget.score) {
       _controller.forward();
@@ -56,34 +58,23 @@ class _ScoreCounterState extends State<ScoreCounter>
     return ScaleTransition(
       scale: _scaleAnimation,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(
-          color: Colors.orange.shade100,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.orange.shade300,
-              offset: const Offset(4, 4),
-              blurRadius: 8,
-            ),
-            const BoxShadow(
-              color: Colors.white,
-              offset: Offset(-4, -4),
-              blurRadius: 8,
-            ),
-          ],
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        // decoration: BoxDecoration(
+        //   color: Colors.blueGrey.shade900,
+        //   borderRadius: BorderRadius.circular(12),
+        // ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.star, color: Colors.deepOrange),
+            Icon(widget.icon, color: Colors.black,),
             const SizedBox(width: 8),
             Text(
-              'Score: ${widget.score}',
+              '${widget.label}: ${widget.score}',
               style: const TextStyle(
-                fontSize: 20,
+                fontFamily: 'Pixel',
+                fontSize: 12,
                 fontWeight: FontWeight.bold,
-                color: Colors.deepOrange,
+                color: Colors.black,
               ),
             ),
           ],

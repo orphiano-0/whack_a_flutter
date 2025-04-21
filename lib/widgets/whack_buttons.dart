@@ -29,8 +29,8 @@ class WhackButtons extends StatelessWidget {
         child: Text(
           content,
           style: TextStyle(
-            fontSize: 18,
-            fontFamily: 'Roboto',
+            fontSize: 15,
+            fontFamily: 'Pixel',
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),

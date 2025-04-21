@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class IsGameOver extends StatelessWidget {
   final int score;
@@ -24,7 +25,8 @@ class IsGameOver extends StatelessWidget {
         children: [
           Text('Game over! Your score is: $score', textAlign: TextAlign.center),
           SizedBox(height: 20),
-          Image.asset('assets/images/pixelated_chicken.png', height: 100,),
+          // Image.asset('assets/images/pixelated_chicken.png', height: 100,),
+          Lottie.asset('assets/lottie/quacker.json', height: 100),
         ],
       ),
       actions: [
