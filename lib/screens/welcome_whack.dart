@@ -41,13 +41,13 @@ class StartScreen extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(height: 5,),
+              const SizedBox(height: 5),
               Text(
                 'by Gab',
                 style: TextStyle(
                   fontFamily: 'Pixel',
                   fontSize: 10,
-                  color: Colors.white
+                  color: Colors.white,
                 ),
               ),
               SizedBox(height: 20),
@@ -73,16 +73,30 @@ class StartScreen extends StatelessWidget {
                     onPressed: () {
                       showDialog(
                         context: context,
-                        builder: (_) => GameSettingsDialog(
-                          backgroundImage: AssetImage('assets/images/mole_background.png'),
-                          lives: 3,
-                          timerSeconds: 30,
-                          onBackgroundChanged: (image) => print('Selected background image'),
-                          onLivesChanged: (lives) => print('Lives changed: $lives'),
-                          onTimerChanged: (time) => print('Timer changed: $time'),
-                        ),
+                        builder:
+                            (_) => GameSettingsDialog(
+                              backgroundImage: AssetImage(
+                                'assets/images/mole_background.png',
+                              ),
+                              lives: 3,
+                              timerSeconds: 30,
+                              onBackgroundChanged: (image) {
+                                context.read<WhackBloc>().add(
+                                  SetBackground(image),
+                                );
+                              },
+                              onLivesChanged: (lives) {
+                                context.read<WhackBloc>().add(
+                                  SetInitialLives(lives),
+                                );
+                              },
+                              onTimerChanged: (time) {
+                                // context.read<WhackBloc>().add(
+                                //   SetInitialTimer(seconds),
+                                // );
+                              },
+                            ),
                       );
-
                     },
                     icon: Icons.settings,
                     color: Colors.blueGrey.shade900,

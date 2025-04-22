@@ -30,8 +30,11 @@ class _GameSettingsDialogState extends State<GameSettingsDialog> {
   final List<ImageProvider> _backgroundImages = [
     AssetImage('assets/images/mole_background.png'),
     AssetImage('assets/images/jungle_background.png'),
+    AssetImage('assets/images/farm_background.png'),
     AssetImage('assets/images/lake_background.png'),
     AssetImage('assets/images/night_background.png'),
+    AssetImage('assets/images/wither.png'),
+    AssetImage('assets/images/sky_island.png'),
   ];
 
   @override

@@ -59,7 +59,6 @@ class _WhackCounterState extends State<WhackCounter>
       scale: _scaleAnimation,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

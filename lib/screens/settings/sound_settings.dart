@@ -178,12 +178,11 @@ class _SettingsDialogState extends State<SettingsDialog> {
               child: isMuted
                   ? Center(
                 child: Container(
-                  width: 10,
-                  height: 10,
+                  width: 12,
+                  height: 12,
                   color: Colors.black, // Pixelated check effect
                 ),
-              )
-                  : null,
+              ) : null,
             ),
           ),
           const SizedBox(width: 10), // Space between checkbox and label
