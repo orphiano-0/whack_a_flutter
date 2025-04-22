@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
 class SettingsDialog extends StatefulWidget {
-  final double brightness;
   final double volume;
-  final ValueChanged<double> onBrightnessChanged;
+  final bool isOn;
   final ValueChanged<double> onVolumeChanged;
 
   const SettingsDialog({
     super.key,
-    required this.brightness,
     required this.volume,
-    required this.onBrightnessChanged,
+    required this.isOn,
     required this.onVolumeChanged,
   });
 
@@ -19,14 +17,16 @@ class SettingsDialog extends StatefulWidget {
 }
 
 class _SettingsDialogState extends State<SettingsDialog> {
-  late double _currentBrightness;
   late double _currentVolume;
+  late bool _soundEffectsOn;
+  late bool _backgroundMusicOn;
 
   @override
   void initState() {
     super.initState();
-    _currentBrightness = widget.brightness;
     _currentVolume = widget.volume;
+    _soundEffectsOn = widget.isOn;
+    _backgroundMusicOn = true;
   }
 
   @override
@@ -38,7 +38,6 @@ class _SettingsDialogState extends State<SettingsDialog> {
         decoration: BoxDecoration(
           color: Colors.blueGrey.shade900,
           border: Border.all(color: Colors.white, width: 4),
-          borderRadius: BorderRadius.circular(0), // square corners
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -57,19 +56,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
               ),
             ),
 
-            // Brightness
-            _buildSliderLabel('Brightness'),
-            _buildPixelSlider(
-              value: _currentBrightness,
-              onChanged: (value) {
-                setState(() => _currentBrightness = value);
-                widget.onBrightnessChanged(value);
-              },
-              activeColor: Colors.amberAccent,
-            ),
-
             SizedBox(height: 10),
-
             // Volume
             _buildSliderLabel('Volume'),
             _buildPixelSlider(
@@ -80,14 +67,36 @@ class _SettingsDialogState extends State<SettingsDialog> {
               },
               activeColor: Colors.cyanAccent,
             ),
+            const SizedBox(height: 20),
+            _buildPixelCheckBox(
+              label: 'Sound Effects',
+              isMuted: _soundEffectsOn,
+              onChanged: (value) {
+                setState(() => _soundEffectsOn = value ?? _soundEffectsOn);
+              },
+            ),
 
             const SizedBox(height: 20),
 
-            // Close button
+            _buildPixelCheckBox(
+              label: 'Background Music',
+              isMuted: _backgroundMusicOn,
+              onChanged: (value) {
+                setState(
+                  () => _backgroundMusicOn = value ?? _backgroundMusicOn,
+                );
+              },
+            ),
+
+            const SizedBox(height: 40),
+
             GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.redAccent,
                   border: Border.all(color: Colors.white, width: 3),
@@ -144,6 +153,49 @@ class _SettingsDialogState extends State<SettingsDialog> {
         max: 1,
         divisions: 10,
         onChanged: onChanged,
+      ),
+    );
+  }
+
+  Widget _buildPixelCheckBox({
+    required String label,
+    required bool isMuted,
+    required ValueChanged<bool?> onChanged,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20),
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () => onChanged(!isMuted),
+            child: Container(
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                color: isMuted ? Colors.white : Colors.transparent,
+                border: Border.all(color: Colors.white, width: 3),
+              ),
+              child: isMuted
+                  ? Center(
+                child: Container(
+                  width: 10,
+                  height: 10,
+                  color: Colors.black, // Pixelated check effect
+                ),
+              )
+                  : null,
+            ),
+          ),
+          const SizedBox(width: 10), // Space between checkbox and label
+          Text(
+            label.toUpperCase(),
+            style: const TextStyle(
+              color: Colors.white70,
+              fontFamily: 'Pixel',
+              fontSize: 14,
+            ),
+          ),
+        ],
       ),
     );
   }

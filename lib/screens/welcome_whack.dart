@@ -6,6 +6,7 @@ import 'package:woof_route/bloc/whack_event.dart';
 import 'package:woof_route/widgets/settings_button.dart';
 import 'package:woof_route/widgets/whack_buttons.dart';
 
+import 'settings/game_settings.dart';
 import 'settings/sound_settings.dart';
 import 'whack_screen.dart';
 
@@ -61,7 +62,7 @@ class StartScreen extends StatelessWidget {
                     ),
                   );
                 },
-                content: 'Play!',
+                content: 'PLAY',
                 color: Colors.blueGrey.shade900,
               ),
               SizedBox(height: 10),
@@ -72,19 +73,16 @@ class StartScreen extends StatelessWidget {
                     onPressed: () {
                       showDialog(
                         context: context,
-                        builder: (context) {
-                          return SettingsDialog(
-                            brightness: 1.0,
-                            volume: 1.0,
-                            onBrightnessChanged: (value) {
-                              // Handle brightness change logic here
-                            },
-                            onVolumeChanged: (value) {
-                              // Handle volume change logic here
-                            },
-                          );
-                        },
+                        builder: (_) => GameSettingsDialog(
+                          backgroundImage: AssetImage('assets/images/forest.png'),
+                          lives: 3,
+                          timerSeconds: 30,
+                          onBackgroundChanged: (image) => print('Selected background image'),
+                          onLivesChanged: (lives) => print('Lives changed: $lives'),
+                          onTimerChanged: (time) => print('Timer changed: $time'),
+                        ),
                       );
+
                     },
                     icon: Icons.settings,
                     color: Colors.blueGrey.shade900,
@@ -92,7 +90,18 @@ class StartScreen extends StatelessWidget {
                   SizedBox(width: 20),
                   SettingsButton(
                     onPressed: () {
-
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return SettingsDialog(
+                            volume: 1.0,
+                            isOn: true,
+                            onVolumeChanged: (value) {
+                              // Handle volume change logic here
+                            },
+                          );
+                        },
+                      );
                     },
                     icon: Icons.volume_up,
                     color: Colors.blueGrey.shade900,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class WhackCounter extends StatefulWidget {
-  final int score;
+  final int count;
   final String label;
   final IconData icon;
 
-  const WhackCounter({super.key, required this.score, required this.icon, required this.label });
+  const WhackCounter({super.key, required this.count, required this.icon, required this.label });
 
   @override
   State<WhackCounter> createState() => _WhackCounterState();
@@ -20,7 +20,7 @@ class _WhackCounterState extends State<WhackCounter>
   @override
   void initState() {
     super.initState();
-    _previousScore = widget.score;
+    _previousScore = widget.count;
 
     _controller = AnimationController(
       vsync: this,
@@ -42,7 +42,7 @@ class _WhackCounterState extends State<WhackCounter>
   @override
   void didUpdateWidget(covariant WhackCounter oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.score != oldWidget.score) {
+    if (widget.count != oldWidget.count) {
       _controller.forward();
     }
   }
@@ -66,7 +66,7 @@ class _WhackCounterState extends State<WhackCounter>
             Icon(widget.icon, color: Colors.black,),
             const SizedBox(width: 8),
             Text(
-              '${widget.label}: ${widget.score}',
+              '${widget.label}: ${widget.count}',
               style: const TextStyle(
                 fontFamily: 'Pixel',
                 fontSize: 12,

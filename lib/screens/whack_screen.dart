@@ -4,7 +4,7 @@ import 'package:woof_route/bloc/whack_bloc.dart';
 import 'package:woof_route/bloc/whack_event.dart';
 import 'package:woof_route/bloc/whack_state.dart';
 import 'package:woof_route/screens/components/lives_counter.dart';
-import 'package:woof_route/screens/components/score_counter.dart';
+import 'package:woof_route/screens/components/whack_counter.dart';
 import 'package:woof_route/screens/components/whack_grid.dart';
 import 'package:woof_route/widgets/whack_buttons.dart';
 
@@ -14,12 +14,19 @@ class WhackScreen extends StatelessWidget {
   const WhackScreen({super.key});
 
   void _showGameOverDialog(BuildContext context, WhackState state) {
-    showDialog(context: context, barrierDismissible: false, builder: (BuildContext dialogContext) {
-      return IsGameOver(score: state.score, onRestart: () {
-        Navigator.of(dialogContext).pop();
-        context.read<WhackBloc>().add(WhackOnStart());
-      });
-    });
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return IsGameOver(
+          score: state.score,
+          onRestart: () {
+            Navigator.of(dialogContext).pop();
+            context.read<WhackBloc>().add(WhackOnStart());
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -34,12 +41,23 @@ class WhackScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Smash Quacker',
+              'Quack-a-Duck',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 20,
+                fontSize: 17,
                 fontFamily: 'Pixel',
                 fontWeight: FontWeight.w600,
+              ),
+            ),
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+                () => context.read<WhackBloc>().add(EndGame());
+              },
+              icon: Icon(
+                Icons.arrow_circle_left,
+                size: 30,
+                color: Colors.white,
               ),
             ),
             actions: [
@@ -71,28 +89,35 @@ class WhackScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      WhackCounter(score: state.score, icon: Icons.star, label: 'Score',),
+                      WhackCounter(
+                        count: state.score,
+                        icon: Icons.star,
+                        label: 'Score',
+                      ),
                       SizedBox(width: 40),
-                      WhackCounter(score: state.timeLeft, icon: Icons.timer, label: 'Timer'),
-                    ],
-                  ),
-                  const SizedBox(height: 50),
-                  LivesCounter(lives: state.lives),
-                  const SizedBox(height: 20),
-                  const SizedBox(height: 20),
-                  WhackGrid(),
-                  const SizedBox(height: 40),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      WhackButtons(
-                        onPressed:
-                            () => context.read<WhackBloc>().add(WhackOnStart()),
-                        content: 'Start',
-                        color: Colors.blueGrey.shade900,
+                      WhackCounter(
+                        count: state.timeLeft,
+                        icon: Icons.timer,
+                        label: 'Timer',
                       ),
                     ],
                   ),
+                  const SizedBox(height: 20),
+                  LivesCounter(lives: state.lives),
+                  const SizedBox(height: 150),
+                  WhackGrid(),
+                  const SizedBox(height: 40),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: [
+                  //     WhackButtons(
+                  //       onPressed:
+                  //           () => context.read<WhackBloc>().add(WhackOnStart()),
+                  //       content: 'Start',
+                  //       color: Colors.blueGrey.shade900,
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),
