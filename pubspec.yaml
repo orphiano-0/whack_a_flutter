@@ -38,6 +38,7 @@ dependencies:
   equatable: ^2.0.7
   audioplayers: ^6.4.0
   lottie: ^3.3.1
+  screen_brightness: ^2.1.2
 
 dev_dependencies:
   flutter_test:
@@ -65,14 +66,10 @@ flutter:
   assets:
      - assets/lottie/
      - assets/images/mole_background.png
-     - assets/images/hole.png
+     - assets/images/night_background.png
+     - assets/images/jungle_background.png
+     - assets/images/lake_background.png
      - assets/images/cracked.png
-     - assets/images/gab.jpeg
-     - assets/images/hole.png
-     - assets/images/mole.png
-     - assets/images/pixelated_chicken.png
-     - assets/images/background.png
-     - assets/images/rodent.png
      - assets/audio/smash.mp3
      - assets/audio/on_hit.m4a
      - assets/audio/quack.mp3

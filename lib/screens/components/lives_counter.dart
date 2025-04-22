@@ -16,8 +16,8 @@ class LivesCounter extends StatelessWidget {
         children: List.generate(
           lives,
           (index) => SizedBox(
-            height: 30,
-            width: 30,
+            height: 40,
+            width: 40,
             child: Lottie.asset('assets/lottie/lives.json', fit: BoxFit.cover),
           )
         ),
