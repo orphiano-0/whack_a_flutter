@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 abstract class WhackEvent {}
 
 class WhackOnStart extends WhackEvent {}
@@ -23,3 +25,19 @@ class PauseGame extends WhackEvent {}
 class ResumeGame extends WhackEvent {}
 
 class IncreaseSpeed extends WhackEvent {}
+
+class SetInitialLives extends WhackEvent {
+  final int lives;
+  SetInitialLives(this.lives);
+}
+
+class SetInitialTimer extends WhackEvent {
+  final int seconds;
+  SetInitialTimer(this.seconds);
+}
+
+class SetBackground extends WhackEvent {
+  final ImageProvider image;
+  SetBackground(this.image);
+}
+

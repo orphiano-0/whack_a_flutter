@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:screen_brightness/screen_brightness.dart';
 
 import 'whack_event.dart';
 import 'whack_state.dart';
@@ -25,6 +24,26 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
       _startGameTimer();
       _startMoleTimer();
       _playBackgroundMusic();
+    });
+
+    // new bloc state
+    on<SetInitialLives>((event, emit) {
+      final newLives = event.lives.clamp(1, 8);
+      emit(state.copyWith(
+        lives: newLives,
+        initialLives: newLives
+      ));
+    });
+
+    on<SetInitialTimer>((event, emit) {
+      emit(state.copyWith(
+        timeLeft: event.seconds.toInt(),
+        initialTimer: event.seconds,
+      ));
+    });
+
+    on<SetBackground>((event, emit) {
+      emit(state.copyWith(backgroundImage: event.image));
     });
 
     on<Tick>((event, emit) {
@@ -143,9 +162,5 @@ class WhackBloc extends Bloc<WhackEvent, WhackState> {
     _backgroundMusic.setVolume(volume);
     _quackSound.setVolume(volume);
     _smashSound.setVolume(volume);
-  }
-
-  void setBrightness(double brightness) async {
-    await ScreenBrightness().setScreenBrightness(brightness);
   }
 }

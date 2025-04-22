@@ -70,7 +70,6 @@ class _GameSettingsDialogState extends State<GameSettingsDialog> {
               ),
             ),
 
-            // Background image selector
             _buildSliderLabel('Background'),
             SizedBox(
               height: 80,
@@ -107,7 +106,6 @@ class _GameSettingsDialogState extends State<GameSettingsDialog> {
 
             const SizedBox(height: 20),
 
-            // Lives selector
             _buildSliderLabel('Lives'),
             _buildPixelSlider(
               value: _currentLives.toDouble(),
@@ -139,7 +137,6 @@ class _GameSettingsDialogState extends State<GameSettingsDialog> {
 
             const SizedBox(height: 20),
 
-            // Close button
             GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(

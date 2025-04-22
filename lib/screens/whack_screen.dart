@@ -6,7 +6,6 @@ import 'package:woof_route/bloc/whack_state.dart';
 import 'package:woof_route/screens/components/lives_counter.dart';
 import 'package:woof_route/screens/components/whack_counter.dart';
 import 'package:woof_route/screens/components/whack_grid.dart';
-import 'package:woof_route/widgets/whack_buttons.dart';
 
 import '../widgets/is_gameover.dart';
 
@@ -79,7 +78,7 @@ class WhackScreen extends StatelessWidget {
           body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/mole_background.png'),
+                image: state.backgroundImage,
                 fit: BoxFit.cover,
               ),
             ),

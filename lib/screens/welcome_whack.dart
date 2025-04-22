@@ -74,7 +74,7 @@ class StartScreen extends StatelessWidget {
                       showDialog(
                         context: context,
                         builder: (_) => GameSettingsDialog(
-                          backgroundImage: AssetImage('assets/images/forest.png'),
+                          backgroundImage: AssetImage('assets/images/mole_background.png'),
                           lives: 3,
                           timerSeconds: 30,
                           onBackgroundChanged: (image) => print('Selected background image'),
