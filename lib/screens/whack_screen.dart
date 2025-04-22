@@ -14,12 +14,19 @@ class WhackScreen extends StatelessWidget {
   const WhackScreen({super.key});
 
   void _showGameOverDialog(BuildContext context, WhackState state) {
-    showDialog(context: context, barrierDismissible: false, builder: (BuildContext dialogContext) {
-      return IsGameOver(score: state.score, onRestart: () {
-        Navigator.of(dialogContext).pop();
-        context.read<WhackBloc>().add(WhackOnStart());
-      });
-    });
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return IsGameOver(
+          score: state.score,
+          onRestart: () {
+            Navigator.of(dialogContext).pop();
+            context.read<WhackBloc>().add(WhackOnStart());
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -37,10 +44,16 @@ class WhackScreen extends StatelessWidget {
               'Smash Quacker',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 20,
+                fontSize: 15,
                 fontFamily: 'Pixel',
                 fontWeight: FontWeight.w600,
               ),
+            ),
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.arrow_circle_left, color: Colors.white, size: 30,),
             ),
             actions: [
               IconButton(
@@ -71,28 +84,35 @@ class WhackScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      WhackCounter(score: state.score, icon: Icons.star, label: 'Score',),
+                      WhackCounter(
+                        score: state.score,
+                        icon: Icons.star,
+                        label: 'Score',
+                      ),
                       SizedBox(width: 40),
-                      WhackCounter(score: state.timeLeft, icon: Icons.timer, label: 'Timer'),
-                    ],
-                  ),
-                  const SizedBox(height: 50),
-                  LivesCounter(lives: state.lives),
-                  const SizedBox(height: 20),
-                  const SizedBox(height: 20),
-                  WhackGrid(),
-                  const SizedBox(height: 40),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      WhackButtons(
-                        onPressed:
-                            () => context.read<WhackBloc>().add(WhackOnStart()),
-                        content: 'Start',
-                        color: Colors.blueGrey.shade900,
+                      WhackCounter(
+                        score: state.timeLeft,
+                        icon: Icons.timer,
+                        label: 'Timer',
                       ),
                     ],
                   ),
+                  const SizedBox(height: 40),
+                  LivesCounter(lives: state.lives),
+                  const SizedBox(height: 140),
+                  WhackGrid(),
+                  // const SizedBox(height: 40),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: [
+                  //     WhackButtons(
+                  //       onPressed:
+                  //           () => context.read<WhackBloc>().add(WhackOnStart()),
+                  //       content: 'Start',
+                  //       color: Colors.blueGrey.shade900,
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),
